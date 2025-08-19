@@ -1,7 +1,9 @@
+// app/components/SpecialistsCarousel.tsx
 "use client";
-import { IconArrowNarrowRight } from "@tabler/icons-react";
+
 import Image from "next/image";
 import { useState, useRef, useId, useEffect } from "react";
+import { ArrowRight } from "lucide-react";
 
 interface SlideData {
   title: string;
@@ -18,20 +20,16 @@ interface SlideProps {
 
 const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   const slideRef = useRef<HTMLLIElement>(null);
-
-  const xRef = useRef(0);
-  const yRef = useRef(0);
-  const frameRef = useRef<number>();
+  const xRef = useRef<number>(0);
+  const yRef = useRef<number>(0);
+  const frameRef = useRef<number>(0);
 
   useEffect(() => {
     const animate = () => {
       if (!slideRef.current) return;
 
-      const x = xRef.current;
-      const y = yRef.current;
-
-      slideRef.current.style.setProperty("--x", `${x}px`);
-      slideRef.current.style.setProperty("--y", `${y}px`);
+      slideRef.current.style.setProperty("--x", `${xRef.current}px`);
+      slideRef.current.style.setProperty("--y", `${yRef.current}px`);
 
       frameRef.current = requestAnimationFrame(animate);
     };
@@ -39,16 +37,13 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     frameRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (frameRef.current) {
-        cancelAnimationFrame(frameRef.current);
-      }
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
   }, []);
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const el = slideRef.current;
     if (!el) return;
-
     const r = el.getBoundingClientRect();
     xRef.current = event.clientX - (r.left + Math.floor(r.width / 2));
     yRef.current = event.clientY - (r.top + Math.floor(r.height / 2));
@@ -59,17 +54,13 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     yRef.current = 0;
   };
 
-  const imageLoaded = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.style.opacity = "1";
-  };
-
   const { src, button, title } = slide;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[70vmin] mx-[4vmin] z-10 "
+        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[70vmin] mx-[4vmin] z-10"
         onClick={() => handleSlideClick(index)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -83,22 +74,20 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         }}
       >
         <div
-          className="absolute top-0 left-0 w-full h-full bg-[#1D1F2F] rounded-[1%] overflow-hidden transition-all duration-150 ease-out"
+          className="absolute top-0 left-0 w-full h-full bg-[#1D1F2F] rounded-[2rem] overflow-hidden transition-all duration-150 ease-out"
           style={{
             transform:
               current === index
-                ? "translate3d(calc(var(--x) / 30), calc(var(--y) / 30), 0)"
+                ? "translate3d(calc(var(--x)/30), calc(var(--y)/30), 0)"
                 : "none",
           }}
         >
           <Image
             className="absolute inset-0 w-[120%] h-[120%] object-cover opacity-100 transition-opacity duration-600 ease-in-out"
-            style={{
-              opacity: current === index ? 1 : 0.5,
-            }}
+            style={{ opacity: current === index ? 1 : 0.5 }}
             alt={title}
             src={src}
-            onLoad={imageLoaded}
+            onLoad={(e) => (e.currentTarget.style.opacity = "1")}
             loading="eager"
             decoding="sync"
           />
@@ -112,13 +101,15 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             current === index ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <h2 className="text-lg md:text-2xl lg:text-4xl font-semibold  relative">
+          <h2 className="text-lg md:text-2xl lg:text-4xl font-semibold relative">
             {title}
           </h2>
           <div className="flex justify-center">
-            <button className="mt-6  px-4 py-2 w-fit mx-auto sm:text-sm text-black bg-white h-12 border border-transparent text-xs flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
-              {button}
-            </button>
+            {current === index && (
+              <button className="mt-6 px-4 py-2 w-fit mx-auto sm:text-sm text-black bg-white h-12 border border-transparent text-xs flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+                {button} <ArrowRight size={16} />
+              </button>
+            )}
           </div>
         </article>
       </li>
@@ -127,16 +118,12 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
 };
 
 interface CarouselControlProps {
-  type: string;
+  type: "previous" | "next";
   title: string;
   handleClick: () => void;
 }
 
-const CarouselControl = ({
-  type,
-  title,
-  handleClick,
-}: CarouselControlProps) => {
+const CarouselControl = ({ type, title, handleClick }: CarouselControlProps) => {
   return (
     <button
       className={`w-10 h-10 flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
@@ -145,7 +132,7 @@ const CarouselControl = ({
       title={title}
       onClick={handleClick}
     >
-      <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200" />
+      <ArrowRight className="text-neutral-600 dark:text-neutral-200" />
     </button>
   );
 };
@@ -154,8 +141,9 @@ interface CarouselProps {
   slides: SlideData[];
 }
 
-export function Carousel({ slides }: CarouselProps) {
-  const [current, setCurrent] = useState(0);
+export default function SpecialistsCarousel({ slides }: CarouselProps) {
+  const [current, setCurrent] = useState<number>(0);
+  const id = useId();
 
   const handlePreviousClick = () => {
     const previous = current - 1;
@@ -168,12 +156,8 @@ export function Carousel({ slides }: CarouselProps) {
   };
 
   const handleSlideClick = (index: number) => {
-    if (current !== index) {
-      setCurrent(index);
-    }
+    if (current !== index) setCurrent(index);
   };
-
-  const id = useId();
 
   return (
     <div
@@ -203,7 +187,6 @@ export function Carousel({ slides }: CarouselProps) {
           title="Go to previous slide"
           handleClick={handlePreviousClick}
         />
-
         <CarouselControl
           type="next"
           title="Go to next slide"
@@ -213,3 +196,4 @@ export function Carousel({ slides }: CarouselProps) {
     </div>
   );
 }
+

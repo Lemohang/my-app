@@ -10,7 +10,7 @@ export default function Home() {
       
       <Hero />
       <ServicesSection />
-      <SpecialistsCarousel />
+      <SpecialistsCarousel slides={[]} />
     </main>
   );
 }
