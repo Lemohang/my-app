@@ -19,7 +19,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-start p-6 bg-blue-900 text-white">
+    <main className="min-h-screen flex flex-col items-center justify-start p-6  text-white">
 
       {/* Hero Section */}
       <motion.section
