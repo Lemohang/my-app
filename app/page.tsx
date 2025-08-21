@@ -2,6 +2,8 @@
 import Hero from "./components/Hero";
 import HomeGrid from "./components/HomeGrid";
 import ServicesSection from "./components/ServicesSection";
+import CustomerReviews from "./components/CustomerReviews";
+import FrequentlyAsked from "./components/FrequentlyAsked";
 
 
 export default function Home() {
@@ -12,6 +14,8 @@ export default function Home() {
       <Hero />
       <ServicesSection /> 
       <HomeGrid />
+      <CustomerReviews />
+      <FrequentlyAsked />
     </main>
   );
 }

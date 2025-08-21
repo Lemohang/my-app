@@ -1,5 +1,6 @@
 import { HeartPulse, Stethoscope, CalendarCheck, Pill, Activity, Users } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
+import CardSpotlight from "./ui/card-spotlight";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700"
     >
       {/* BentoGrid with health-focused items */}
+      <CardSpotlight>
       <BentoGrid className="gap-6 max-w-6xl">
         <BentoGridItem
           title="24/7 Medical Support"
@@ -70,6 +72,9 @@ export default function Home() {
           className="bg-white/90 shadow-lg rounded-2xl hover:scale-105 hover:shadow-[0_0_20px_#ec4899] transition-all duration-300"
         />
       </BentoGrid>
+      </CardSpotlight>
+      
+      {/* Additional content can go here */}
     </main>
   );
 }
