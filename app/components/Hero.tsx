@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search, CalendarCheck, } from "lucide-react";
+import { Search, CalendarCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -19,29 +19,29 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-start p-6  text-white">
+    <main className="min-h-screen flex flex-col items-center justify-start p-6 text-white">
 
       {/* Hero Section */}
       <motion.section
         className="relative w-full max-w-6xl text-center py-20 px-6
-                   bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500
-                   rounded-[3rem] overflow-hidden shadow-xl"
+                   bg-gradient-to-br from-blue-900 to-teal-900
+                   rounded-[3rem] overflow-hidden shadow-2xl"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
         <motion.h1
-          className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white drop-shadow-lg"
+          className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white drop-shadow-[0_0_10px_cyan]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-pink-300 to-orange-400">YourCare</span><br />
+          Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400">YourCare</span><br />
           Book Smarter. Live Better.
         </motion.h1>
 
         <motion.p
-          className="text-base md:text-lg lg:text-xl text-white/90 max-w-2xl mx-auto mt-4 leading-relaxed"
+          className="text-base md:text-lg lg:text-xl text-cyan-100/80 max-w-2xl mx-auto mt-4 leading-relaxed"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
@@ -51,16 +51,16 @@ export default function Home() {
 
         {/* Search Bar */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center w-full max-w-sm sm:max-w-md bg-white/20 backdrop-blur-xl rounded-[3rem] shadow-2xl overflow-hidden mt-8 mx-auto"
+          className="flex flex-col sm:flex-row items-center justify-center w-full max-w-sm sm:max-w-md bg-black/30 backdrop-blur-xl rounded-[3rem] shadow-2xl overflow-hidden mt-8 mx-auto"
           initial="hidden"
           animate="visible"
           transition={{ staggerChildren: 0.15 }}
         >
           <motion.div className="flex items-center px-4 py-3 w-full sm:w-72 relative">
-            <Search size={20} className="text-white/70 mr-3" />
+            <Search size={20} className="text-cyan-400/70 mr-3" />
             <input
               type="text"
-              className="flex-1 bg-transparent outline-none text-white placeholder-white/50 text-base sm:text-lg font-medium"
+              className="flex-1 bg-transparent outline-none text-white placeholder-cyan-200/50 text-base sm:text-lg font-medium"
               placeholder={typedText}
             />
           </motion.div>
@@ -68,21 +68,18 @@ export default function Home() {
           {/* Centered Search Button */}
           <div className="flex justify-center items-center mt-3 sm:mt-0">
             <motion.button
-              className="bg-gradient-to-r from-yellow-400 via-pink-400 to-orange-400 
-                         hover:from-yellow-500 hover:via-pink-500 hover:to-orange-500 
+              className="bg-gradient-to-r from-blue-400 to-teal-400 hover:from-blue-500 hover:to-teal-500
                          px-6 py-3 flex items-center space-x-2 text-white font-semibold 
-                         rounded-[2.5rem] transition-transform transform hover:scale-105 
-                         shadow-lg"
+                         rounded-[2.5rem] transition-transform transform hover:scale-105 shadow-lg"
             >
-              
-              
+              Search
             </motion.button>
           </div>
         </motion.div>
 
         {/* Quick Book Button */}
         <motion.div className="pt-6 flex justify-center">
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-8 py-4 rounded-[3rem] flex items-center space-x-3 transition-transform transform hover:scale-105 shadow-xl mt-4">
+          <button className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-8 py-4 rounded-[3rem] flex items-center space-x-3 transition-transform transform hover:scale-105 shadow-xl mt-4">
             <CalendarCheck size={20} />
             <span>Quick Book Appointment</span>
           </button>
@@ -104,12 +101,12 @@ export default function Home() {
         ].map((item, idx) => (
           <motion.div
             key={idx}
-            className="p-6 bg-white/10 backdrop-blur-lg rounded-[2rem] shadow-lg"
+            className="p-6 bg-black/30 backdrop-blur-lg rounded-[2rem] shadow-2xl"
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.8 }}
           >
-            <h3 className="text-2xl font-bold mb-2 text-white">{item.title}</h3>
-            <p className="text-white/80">{item.desc}</p>
+            <h3 className="text-2xl font-bold mb-2 text-cyan-400">{item.title}</h3>
+            <p className="text-cyan-100/80">{item.desc}</p>
           </motion.div>
         ))}
       </motion.section>

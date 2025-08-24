@@ -14,7 +14,7 @@ export default function GlassHeader() {
 
           {/* Navigation */}
           <nav className="hidden md:flex space-x-6">
-            <a href="#features" className="text-white hover:text-blue-200 transition font-medium">
+            <a href="features" className="text-white hover:text-blue-200 transition font-medium">
               Features
             </a>
             <a href="services" className="text-white hover:text-blue-200 transition font-medium">
