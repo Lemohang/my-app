@@ -4,3 +4,13 @@
   --background: #284ef7;
   --foreground: #171717;
 }
+
+.mask-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  mask-repeat: no-repeat;
+  mask-size: cover;
+}
+

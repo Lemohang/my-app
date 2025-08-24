@@ -17,10 +17,10 @@ export default function GlassHeader() {
             <a href="#features" className="text-white hover:text-blue-200 transition font-medium">
               Features
             </a>
-            <a href="#services" className="text-white hover:text-blue-200 transition font-medium">
+            <a href="services" className="text-white hover:text-blue-200 transition font-medium">
               Services
             </a>
-            <a href="#pricing" className="text-white hover:text-blue-200 transition font-medium">
+            <a href="pricing" className="text-white hover:text-blue-200 transition font-medium">
               Pricing
             </a>
             <a href="#contact" className="text-white hover:text-blue-200 transition font-medium">
